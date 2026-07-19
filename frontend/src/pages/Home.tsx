@@ -1,5 +1,4 @@
 import { useState } from "react";
-import UploadBox from "../components/UploadBox";
 import ImagePreview from "../components/ImagePreview";
 import ResultCard from "../components/ResultCard";
 import { analyzeImage } from "../services/api";
