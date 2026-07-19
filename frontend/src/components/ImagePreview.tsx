@@ -10,13 +10,14 @@ export default function ImagePreview({ preview, setImage, setPreview }: Props) {
       <img src={preview} alt="preview" width="300" />
       <br />
       <button
-        onClick={() => {
-          setImage(null);
-          setPreview(null);
-        }}
-      >
-        Remove
-      </button>
+  onClick={() => {
+    setImage(null);
+    setPreview(null);
+  }}
+  className="secondary-btn"
+>
+  ❌ Remove Image
+</button>
     </div>
   );
 }

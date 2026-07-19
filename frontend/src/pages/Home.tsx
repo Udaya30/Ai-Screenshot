@@ -37,31 +37,49 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-        <Navbar />
+  <div className="home">
+    <Navbar />
 
-        <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
-        <UploadBox setImage={setImage} setPreview={setPreview} />
+    <div className="container">
+      
+      <div className="upload-box">
+  <input
+    type="file"
+    id="fileUpload"
+    accept="image/*"
+    onChange={(e) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        setImage(file);
+        setPreview(URL.createObjectURL(file));
+      }
+    }}
+    hidden
+  />
 
-        {preview && (
-            <ImagePreview
-            preview={preview}
-            setImage={setImage}
-            setPreview={setPreview}
-            />
-        )}
+  <label htmlFor="fileUpload" className="upload-btn">
+    📁 Choose Image
+  </label>
+</div>
+      {preview && (
+        <ImagePreview
+          preview={preview}
+          setImage={setImage}
+          setPreview={setPreview}
+        />
+      )}
 
-        <button
-            onClick={handleAnalyze}
-            disabled={!image || loading}
-            className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-        >
-            {loading ? "Analyzing..." : "Analyze Screenshot"}
-        </button>
+      <button
+        onClick={handleAnalyze}
+        disabled={!image || loading}
+        className="analyze-btn"
+      >
+        {loading ? "Analyzing..." : "Analyze Screenshot"}
+      </button>
 
-        {loading && <Loader />}
-        {result && <ResultCard result={result} />}
-        </div>
+      {loading && <Loader />}
+      {result && <ResultCard result={result} />}
     </div>
-    );
+  </div>
+);
 }
