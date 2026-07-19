@@ -41,25 +41,40 @@ export default function Home() {
 
     <div className="container">
       
-      <div className="upload-box">
-  <input
-    type="file"
-    id="fileUpload"
-    accept="image/*"
-    onChange={(e) => {
-      const file = e.target.files?.[0];
-      if (file) {
-        setImage(file);
-        setPreview(URL.createObjectURL(file));
-      }
-    }}
-    hidden
-  />
+      <div
+        className={`upload-drop`}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => {
+          e.preventDefault();
+          const file = e.dataTransfer.files?.[0];
 
-  <label htmlFor="fileUpload" className="upload-btn">
-    📁 Choose Image
-  </label>
-</div>
+          if (file && file.type.startsWith("image/")) {
+            setImage(file);
+            setPreview(URL.createObjectURL(file));
+          } else {
+            alert("Please upload an image file");
+          }
+        }}
+      >
+        <input
+          type="file"
+          id="fileUpload"
+          accept="image/*"
+          hidden
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              setImage(file);
+              setPreview(URL.createObjectURL(file));
+            }
+          }}
+        />
+
+        <label htmlFor="fileUpload" className="upload-content">
+          <p>📤 Drag & Drop Image Here</p>
+          <span>or click to browse</span>
+        </label>
+      </div>
       {preview && (
         <ImagePreview
           preview={preview}

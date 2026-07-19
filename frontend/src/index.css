@@ -179,9 +179,9 @@ code {
   transition: transform 0.2s ease;
 }
 
-.container:hover {
+/* .container:hover {
   transform: translateY(-3px);
-}
+} */
 
 /* Button styling */
 .analyze-btn {
@@ -301,4 +301,33 @@ code {
 /* Click effect */
 .speaker-btn:active {
   transform: scale(0.95);
+}
+
+.upload-drop {
+  border: 2px dashed #6366f1;
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.upload-drop:hover {
+  background: #eef2ff;
+  border-color: #4f46e5;
+}
+
+/* Text */
+.upload-content p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 6px;
+}
+
+.upload-content span {
+  font-size: 13px;
+  color: #64748b;
 }
