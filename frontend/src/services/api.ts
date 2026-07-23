@@ -9,11 +9,13 @@ type ResultType = {
 export const analyzeImage = async (image: File): Promise<ResultType> => {
   try {
     const base64 = await fileToBase64(image);
-
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const api = import.meta.env.VITE_API_URL;
+    const res = await fetch(api, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+        ...(OPENROUTER_API_KEY
+          ? { Authorization: `Bearer ${OPENROUTER_API_KEY}` }
+          : {}),
         "Content-Type": "application/json",
         "HTTP-Referer": "http://localhost:5173", // optional
         "X-Title": "AI Image Analyzer"
@@ -47,7 +49,19 @@ export const analyzeImage = async (image: File): Promise<ResultType> => {
 
     const data = await res.json();
 
-    const text = data.choices?.[0]?.message?.content;
+    if (!res.ok) {
+      throw new Error(data?.error || "Analyze request failed");
+    }
+
+    if (data?.explanation && data?.issue && data?.solution) {
+      return {
+        explanation: data.explanation,
+        issue: data.issue,
+        solution: data.solution,
+      };
+    }
+
+    const text = data?.reply ?? data?.choices?.[0]?.message?.content;
 
     const cleaned = text
       ?.replace(/```json/g, "")

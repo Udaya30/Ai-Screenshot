@@ -5,6 +5,7 @@ type ResultType = {
 };
 
 export default function ResultCard({ result }: { result: ResultType }) {
+  console.log(result);
   const speakText = (text: string) => {
   const speech = new SpeechSynthesisUtterance(text);
   speech.lang = "en-US";
