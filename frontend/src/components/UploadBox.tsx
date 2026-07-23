@@ -26,7 +26,7 @@ export default function UploadBox({ setImage, setPreview }: Props) {
     const type = meta.match(/data:(.*);base64/)?.[1];
 
     // 🚀 Send to backend
-    const res = await fetch("http://localhost:5000/api/analyze", {
+    const res = await fetch(import.meta.env.VITE_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
